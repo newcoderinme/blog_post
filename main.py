@@ -17,8 +17,7 @@ from dotenv import load_dotenv      # pip install python-dotenv
 
 load_dotenv()
 
-# APP_SECRET_KEY = os.environ.get("SECRET_KEY")       # read from .env file
-APP_SECRET_KEY = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+APP_SECRET_KEY = os.environ.get("SECRET_KEY")       # read from .env file
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = APP_SECRET_KEY
@@ -252,6 +251,6 @@ def delete_post(post_id):
 
 
 if __name__ == "__main__":
-    # app.run()
-    app.run(host='0.0.0.0', port=5000)
+    app.run()
+    # app.run(host='0.0.0.0', port=5000)
 
