@@ -17,10 +17,9 @@ from dotenv import load_dotenv      # pip install python-dotenv
 
 load_dotenv()
 
-APP_SECRET_KEY = os.environ.get("SECRET_KEY")       # read from .env file
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = APP_SECRET_KEY
+app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")       # read from .env file
 ckeditor = CKEditor(app)
 Bootstrap(app)
 login_manager = LoginManager(app)
@@ -28,7 +27,11 @@ gravatar = Gravatar(app, size=100, rating='g', default='retro', force_default=Fa
                     use_ssl=False, base_url=None)
 
 ##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+if os.environ.get('DATABASE_URL'):
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
